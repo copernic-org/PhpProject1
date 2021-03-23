@@ -21,6 +21,9 @@ interface DB {
     public function insert($modalitat, $nivell, $intents): int;
     
     public function selectAll();
+    
+    function selectByModalitat($modalitat);
+    
     // function delete($id): void;
     // ...
 }

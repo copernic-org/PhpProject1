@@ -22,6 +22,10 @@ abstract class DatabaseConnection implements DB {
     function __destruct() {
         $this->connection = null;
     }
+    
+    public function getConnection() {
+        return $this->connection;
+    }
 
 }
 

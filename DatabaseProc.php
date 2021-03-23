@@ -9,21 +9,16 @@ include_once 'DatabaseConnection.php';
  */
 class DatabaseProc extends DatabaseConnection {
 
-    public function __construct($servername, $username, $password, $database) {
+    public function __construct($servername, $username, $password) {
         parent::__construct($servername, $username, $password);
     }
 
-//put your code here
     public function connect(): void {
         $this->connection = mysqli_connect($this->servername, $this->username, $this->password);
         if (!$this->connection) {
             die("Connection failed: " . mysqli_connect_error());
             $this->connection = null;
         }
-    }
-
-    private function getLastId(): int {
-        return 1;
     }
 
     public function insert($modalitat, $nivell, $intents): int {
@@ -44,6 +39,15 @@ class DatabaseProc extends DatabaseConnection {
             $result = mysqli_query($this->connection, $sql);
         }
         return $result;        
+    }
+
+    public function selectByModalitat($modalitat) {
+        $sql = "SELECT id, modalitat, nivell, data_partida, intents FROM estadistiques WHERE modalitat = '$modalitat'";
+        $result = null;
+        if ($this->connection != null) {
+            $result = mysqli_query($this->connection, $sql);
+        }
+        return $result; 
     }
 
 }
